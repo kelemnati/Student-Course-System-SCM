@@ -1,0 +1,17 @@
+Baseline ID: BL2
+Baseline Name: Functional Baseline
+
+Description:
+This baseline represents a working prototype of the Student Login
+and Course List System with approved change requests implemented.
+
+Included Configuration Items:
+- Login module
+- Course list module
+- Backend JSON data
+- Course search functionality (CR-001)
+- Change control documents
+- Test checklist
+
+Baseline Date: 12/22/2025
+Approved By: Project Leader
