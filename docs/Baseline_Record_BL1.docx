@@ -1,0 +1,18 @@
+Baseline ID: BL1
+Baseline Name: Documentation & Repository Setup Baseline
+
+Description:
+This baseline establishes the initial repository structure,
+SCM documentation, CI identification, and configuration control setup.
+No functional source code is included in this baseline.
+
+Included Configuration Items:
+- SCM Plan (SCMP)
+- CI Register
+- Change Request Form
+- Change Log
+- Repository folder structure
+- README placeholders
+
+Baseline Date: (date you tagged BL1)
+Approved By: Project Leader
