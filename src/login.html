@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Portal | Auth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-blue-600 to-indigo-900 min-h-screen flex items-center justify-center p-4"
+  >
+    <div
+      class="glass-effect w-full max-auto max-w-md p-8 rounded-2xl shadow-2xl"
+    >
+      <div class="text-center mb-8">
+        <div
+          class="inline-block p-3 rounded-full bg-blue-100 text-blue-600 mb-2"
+        >
+          <i class="fa-solid fa-graduation-cap text-3xl"></i>
+        </div>
+        <h1 id="form-title" class="text-3xl font-bold text-gray-800">
+          Welcome Back
+        </h1>
+        <p id="form-subtitle" class="text-gray-500">
+          Please enter your details to login
+        </p>
+      </div>
+
+      <div id="message" class="mb-4 p-3 rounded text-center hidden"></div>
+
+      <form id="auth-form" class="space-y-4">
+        <div id="signup-names" class="grid grid-cols-2 gap-4 hidden">
+          <div>
+            <label class="block text-sm font-medium text-gray-700"
+              >First Name</label
+            >
+            <input
+              type="text"
+              id="firstName"
+              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+              placeholder="John"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700"
+              >Last Name</label
+            >
+            <input
+              type="text"
+              id="lastName"
+              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+              placeholder="Doe"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Email Address</label
+          >
+          <input
+            type="email"
+            id="email"
+            required
+            class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+            placeholder="name@university.edu"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            required
+            minlength="6"
+            class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+            placeholder="••••••••"
+          />
+        </div>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow-lg transform transition active:scale-95"
+        >
+          Login
+        </button>
+      </form>
+
+      <div class="mt-6 text-center text-sm">
+        <span id="toggle-text" class="text-gray-600"
+          >Don't have an account?</span
+        >
+        <button
+          id="toggle-btn"
+          class="ml-1 text-blue-600 font-bold hover:underline"
+        >
+          Sign Up
+        </button>
+      </div>
+    </div>
+
+    <script src="login.js"></script>
+  </body>
+</html>
