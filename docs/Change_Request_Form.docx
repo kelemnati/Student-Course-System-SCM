@@ -1,0 +1,29 @@
+Change Request ID: CR-001
+Project Name: Student Login & Course List System
+Requested By: QA Team
+Date Submitted: (Today’s date)
+
+Change Title:
+Add Course Search Functionality
+
+Change Description:
+Add a search input field on the course list page to allow students to filter courses by course name.
+
+Reason for Change:
+Improve usability and navigation for students.
+
+Affected Configuration Items:
+- courses.html
+- courses.js
+
+Impact Analysis:
+Low impact change. No database modification required.
+
+Priority:
+Medium
+
+Approval Status:
+Approved
+
+Assigned To:
+Course Module Developer

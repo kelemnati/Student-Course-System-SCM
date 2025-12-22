@@ -1,0 +1,13 @@
+A1: CR ID
+B1: Date
+C1: Description
+D1: Affected CIs
+E1: Status
+F1: Owner
+
+A2: CR-001
+B2: 12/22/2025
+C2: Add course search functionality
+D2: courses.html, courses.js
+E2: Approved
+F2: Change Manager
