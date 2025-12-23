@@ -57,3 +57,38 @@ Approved
 
 Assigned To:
 Course Module Developer
+
+
+Change Request ID: CR-003
+Project Name: Student Login & Course List System
+Requested By: Project Leader
+Date Submitted: 12/23/2025
+
+Change Title:
+Document Known Limitations and Assumptions
+
+Change Description:
+Add a “Known Limitations & Assumptions” section to project documentation
+to clearly state current system constraints such as static authentication,
+limited database usage, and non-production readiness.
+
+Reason for Change:
+To improve documentation quality, transparency, and align the project
+with academic SCM best practices.
+
+Affected Configuration Items:
+- README.md
+- SCMP document
+
+Impact Analysis:
+No impact on system functionality.
+Documentation-only change.
+
+Priority:
+Low
+
+Approval Status:
+Approved
+
+Assigned To:
+Change Manager

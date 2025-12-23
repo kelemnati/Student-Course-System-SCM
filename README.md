@@ -16,3 +16,11 @@ Focus is on SCM processes, not programming complexity.
 ## Baselines
 
 - BL1: Repository setup and SCM documentation
+
+## Known Limitations & Assumptions
+
+- Authentication is static and intended for demonstration purposes only.
+- Passwords are not encrypted and should not be used in production.
+- Database integration is minimal and used only to simulate backend behavior.
+- The system is not optimized for scalability or security.
+- This project focuses on Software Configuration Management processes rather than full system functionality.
