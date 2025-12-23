@@ -2,114 +2,140 @@ const API_URL = "http://localhost:3000/api";
 const userId = localStorage.getItem("studentUserId");
 const userName = localStorage.getItem("studentName");
 
-// Redirect if not logged in
-if (!userId) {
-  window.location.href = "index.html";
-}
+let allCoursesData = [];
+let enrolledIds = [];
+let currentCategory = "All";
 
-document.getElementById("user-display").innerText = `Hi, ${userName}`;
-document.getElementById("welcome-name").innerText = userName;
+if (!userId) window.location.href = "login.html";
+document.getElementById("user-display").innerText = "Hi, " + userName;
 
-// Initialize Page
-async function init() {
-  await renderDashboard();
-}
-
-async function renderDashboard() {
+async function fetchData() {
   try {
-    // 1. Fetch User Data (to see what they are enrolled in)
-    const userRes = await fetch(`${API_URL}/user/${userId}`);
+    const [userRes, courseRes] = await Promise.all([
+      fetch(`${API_URL}/user/${userId}`),
+      fetch(`${API_URL}/courses`),
+    ]);
     const user = await userRes.json();
-    const enrolledIds = user.enrolledCourses.map((c) => c._id);
+    allCoursesData = await courseRes.json();
+    enrolledIds = user.enrolledCourses.map((c) => c._id);
 
-    // 2. Fetch All Courses
-    const courseRes = await fetch(`${API_URL}/courses`);
-    const allCourses = await courseRes.json();
-
-    // 3. Render Enrolled Courses
-    const enrolledContainer = document.getElementById("enrolled-container");
     document.getElementById("enroll-count").innerText =
       user.enrolledCourses.length;
-
-    if (user.enrolledCourses.length === 0) {
-      enrolledContainer.innerHTML = `<p class="text-gray-400 col-span-full italic">You haven't enrolled in any courses yet.</p>`;
-    } else {
-      enrolledContainer.innerHTML = user.enrolledCourses
-        .map((course) => createCourseCard(course, true))
-        .join("");
-    }
-
-    // 4. Render Available Courses (Filter out what's already enrolled)
-    const coursesContainer = document.getElementById("courses-container");
-    const available = allCourses.filter((c) => !enrolledIds.includes(c._id));
-    coursesContainer.innerHTML = available
-      .map((course) => createCourseCard(course, false))
-      .join("");
-  } catch (err) {
-    console.error("Error loading dashboard:", err);
+    document.getElementById("enrolled-container").innerHTML = user
+      .enrolledCourses.length
+      ? user.enrolledCourses.map((c) => createCard(c, true)).join("")
+      : "<p class='text-gray-400 col-span-full italic'>You haven't enrolled in any courses yet.</p>";
+  } catch (e) {
+    console.error("Data fetch error:", e);
   }
 }
 
-function createCourseCard(course, isEnrolled) {
+function setupCategories() {
+  const cats = ["All", ...new Set(allCoursesData.map((c) => c.category))];
+  const container = document.getElementById("category-filters");
+
+  container.innerHTML = cats
+    .map((cat) => {
+      const isActive = cat === currentCategory;
+      return `
+      <button 
+          class="category-pill bg-white px-6 py-2.5 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-50 ${
+            isActive ? "active" : ""
+          }" 
+          onclick="filterByCategory('${cat}', this)">
+          ${cat}
+      </button>`;
+    })
+    .join("");
+}
+
+function filterByCategory(cat, btn) {
+  currentCategory = cat;
+  document
+    .querySelectorAll(".category-pill")
+    .forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
+  render();
+}
+
+function render() {
+  const search = document.getElementById("course-search").value.toLowerCase();
+
+  const filtered = allCoursesData
+    .filter((c) => !enrolledIds.includes(c._id))
+    .filter((c) => currentCategory === "All" || c.category === currentCategory)
+    .filter(
+      (c) =>
+        c.title.toLowerCase().includes(search) ||
+        c.category.toLowerCase().includes(search)
+    );
+
+  const container = document.getElementById("courses-container");
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-400">No results found for "${search}"</div>`;
+    return;
+  }
+  container.innerHTML = filtered.map((c) => createCard(c, false)).join("");
+}
+
+function createCard(c, isEnrolled) {
   return `
-        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 overflow-hidden flex flex-col">
-            <img src="${
-              course.imageUrl
-            }" class="h-40 w-full object-cover" alt="${course.title}">
-            <div class="p-5 flex-grow">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="text-xs font-bold text-blue-500 uppercase tracking-wider">${
-                      course.category
-                    }</span>
-                    <span class="text-xs text-gray-400"><i class="fa-regular fa-clock mr-1"></i>${
-                      course.creditHours
-                    } hrs</span>
-                </div>
-                <h4 class="font-bold text-gray-800 text-lg mb-2">${
-                  course.title
-                }</h4>
-                <p class="text-gray-600 text-sm line-clamp-2 mb-4">${
-                  course.description
-                }</p>
-            </div>
-            <div class="p-5 pt-0">
-                <button onclick="${isEnrolled ? "unenroll" : "enroll"}('${
-    course._id
-  }')" 
-                        class="w-full py-2 px-4 rounded-lg font-semibold transition ${
-                          isEnrolled
-                            ? "bg-red-50 text-red-600 hover:bg-red-100"
-                            : "bg-blue-600 text-white hover:bg-blue-700 shadow-md"
-                        }">
-                    ${isEnrolled ? "Drop Course" : "Enroll Now"}
-                </button>
-            </div>
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+        <img src="${c.imageUrl}" class="h-44 w-full object-cover" alt="${
+    c.title
+  }">
+        <div class="p-5 flex-grow">
+            <span class="text-blue-600 text-[11px] font-bold uppercase tracking-wider">${
+              c.category
+            }</span>
+            <h4 class="font-bold text-gray-800 mt-1">${c.title}</h4>
+            <p class="text-gray-500 text-xs line-clamp-2 mt-2 leading-relaxed">${
+              c.description
+            }</p>
         </div>
-    `;
+        <div class="p-5 pt-0">
+            <button onclick="${isEnrolled ? "unenroll" : "enroll"}('${c._id}')" 
+                class="w-full py-3 rounded-xl text-sm font-bold transition-all ${
+                  isEnrolled
+                    ? "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                    : "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-100"
+                }">
+                ${isEnrolled ? "Drop Course" : "Enroll Now"}
+            </button>
+        </div>
+    </div>`;
 }
 
 async function enroll(courseId) {
-  const res = await fetch(`${API_URL}/enroll`, {
+  await fetch(`${API_URL}/enroll`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId, courseId }),
   });
-  if (res.ok) renderDashboard();
+  init();
 }
 
 async function unenroll(courseId) {
-  if (!confirm("Are you sure you want to drop this course?")) return;
-  const res = await fetch(`${API_URL}/unenroll`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId, courseId }),
-  });
-  if (res.ok) renderDashboard();
+  if (confirm("Are you sure you want to drop this course?")) {
+    await fetch(`${API_URL}/unenroll`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, courseId }),
+    });
+    init();
+  }
 }
 
 function logout() {
   localStorage.clear();
   window.location.href = "login.html";
+}
+
+async function init() {
+  await fetchData();
+  setupCategories();
+  render();
+  document.getElementById("course-search").addEventListener("input", render);
 }
 
 init();
