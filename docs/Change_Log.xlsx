@@ -1,5 +1,5 @@
 A1: CR ID
-B1: Date
+B1: 12/22/2025
 C1: Description
 D1: Affected CIs
 E1: Status
@@ -11,3 +11,10 @@ C2: Add course search functionality
 D2: courses.html, courses.js
 E2: Approved
 F2: Change Manager
+
+A3: CR-002
+B3: 12/22/2025
+C3: Add favorite courses feature
+D3: courses.html, courses.js
+E3: Approved
+F3: Change Manager

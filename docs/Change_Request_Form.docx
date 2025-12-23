@@ -27,3 +27,35 @@ Approved
 
 Assigned To:
 Course Module Developer
+
+
+
+Change Request ID: CR-002
+Project Name: Student Login & Course List System
+Requested By: QA Team / Project Leader
+Date Submitted: 12/23/2025
+
+Change Title:
+Add Favorite Courses Feature
+
+Change Description:
+Allow students to mark courses as favorite and view a list of their favorite courses.
+
+Reason for Change:
+Improve user experience by allowing quick access to preferred courses.
+
+Affected Configuration Items:
+- courses.html
+- courses.js
+
+Impact Analysis:
+Low impact change. No database schema modification required.
+
+Priority:
+Medium
+
+Approval Status:
+Approved
+
+Assigned To:
+Course Module Developer
