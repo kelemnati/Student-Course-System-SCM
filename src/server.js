@@ -64,8 +64,30 @@ app.get("/api/courses", async (req, res) => {
 
 // Get user profile (including their enrolled courses)
 app.get("/api/user/:id", async (req, res) => {
-  const user = await User.findById(req.params.id).populate("enrolledCourses");
+  // Populate both enrolled and favorite courses
+  const user = await User.findById(req.params.id)
+    .populate("enrolledCourses")
+    .populate("favorites");
   res.json(user);
+});
+
+app.post("/api/toggle-favorite", async (req, res) => {
+  const { userId, courseId } = req.body;
+  try {
+    const user = await User.findById(userId);
+    const isFavorited = user.favorites.includes(courseId);
+
+    if (isFavorited) {
+      user.favorites.pull(courseId); // Remove if exists
+    } else {
+      user.favorites.push(courseId); // Add if not exists
+    }
+
+    await user.save();
+    res.json({ message: "Success", isFavorited: !isFavorited });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update favorites" });
+  }
 });
 
 // Enroll

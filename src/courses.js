@@ -4,48 +4,46 @@ const userName = localStorage.getItem("studentName");
 
 let allCoursesData = [];
 let enrolledIds = [];
+let favoriteIds = [];
 let currentCategory = "All";
 
 if (!userId) window.location.href = "login.html";
 document.getElementById("user-display").innerText = "Hi, " + userName;
 
 async function fetchData() {
-  try {
-    const [userRes, courseRes] = await Promise.all([
-      fetch(`${API_URL}/user/${userId}`),
-      fetch(`${API_URL}/courses`),
-    ]);
-    const user = await userRes.json();
-    allCoursesData = await courseRes.json();
-    enrolledIds = user.enrolledCourses.map((c) => c._id);
+  const resUser = await fetch(`${API_URL}/user/${userId}`);
+  const resCourses = await fetch(`${API_URL}/courses`);
+  const user = await resUser.json();
+  allCoursesData = await resCourses.json();
 
-    document.getElementById("enroll-count").innerText =
-      user.enrolledCourses.length;
-    document.getElementById("enrolled-container").innerHTML = user
-      .enrolledCourses.length
-      ? user.enrolledCourses.map((c) => createCard(c, true)).join("")
-      : "<p class='text-gray-400 col-span-full italic'>You haven't enrolled in any courses yet.</p>";
-  } catch (e) {
-    console.error("Data fetch error:", e);
-  }
+  enrolledIds = user.enrolledCourses.map((c) => c._id);
+  favoriteIds = user.favorites.map((c) => c._id);
+
+  document.getElementById("enroll-count").innerText =
+    user.enrolledCourses.length;
+  document.getElementById("enrolled-container").innerHTML = user.enrolledCourses
+    .length
+    ? user.enrolledCourses.map((c) => createCard(c, true)).join("")
+    : "<p class='text-gray-400 col-span-full'>No enrollments yet.</p>";
 }
 
 function setupCategories() {
-  const cats = ["All", ...new Set(allCoursesData.map((c) => c.category))];
-  const container = document.getElementById("category-filters");
-
-  container.innerHTML = cats
-    .map((cat) => {
-      const isActive = cat === currentCategory;
-      return `
-      <button 
-          class="category-pill bg-white px-6 py-2.5 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-50 ${
-            isActive ? "active" : ""
-          }" 
-          onclick="filterByCategory('${cat}', this)">
-          ${cat}
-      </button>`;
-    })
+  const cats = [
+    "All",
+    "Favorites",
+    ...new Set(allCoursesData.map((c) => c.category)),
+  ];
+  document.getElementById("category-filters").innerHTML = cats
+    .map(
+      (cat) => `
+        <button class="category-pill bg-white px-6 py-2.5 rounded-full text-sm font-medium text-gray-600 ${
+          cat === currentCategory ? "active" : ""
+        }" 
+            onclick="filterByCategory('${cat}', this)">
+            ${cat === "Favorites" ? "❤️ Favorites" : cat}
+        </button>
+    `
+    )
     .join("");
 }
 
@@ -60,36 +58,48 @@ function filterByCategory(cat, btn) {
 
 function render() {
   const search = document.getElementById("course-search").value.toLowerCase();
-
   const filtered = allCoursesData
     .filter((c) => !enrolledIds.includes(c._id))
-    .filter((c) => currentCategory === "All" || c.category === currentCategory)
-    .filter(
-      (c) =>
-        c.title.toLowerCase().includes(search) ||
-        c.category.toLowerCase().includes(search)
-    );
+    .filter((c) => {
+      const matchesSearch = c.title.toLowerCase().includes(search);
+      const matchesCat =
+        currentCategory === "All"
+          ? true
+          : currentCategory === "Favorites"
+          ? favoriteIds.includes(c._id)
+          : c.category === currentCategory;
+      return matchesSearch && matchesCat;
+    });
 
-  const container = document.getElementById("courses-container");
-  if (filtered.length === 0) {
-    container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-400">No results found for "${search}"</div>`;
-    return;
-  }
-  container.innerHTML = filtered.map((c) => createCard(c, false)).join("");
+  document.getElementById("courses-container").innerHTML = filtered.length
+    ? filtered.map((c) => createCard(c, false)).join("")
+    : `<div class="col-span-full text-center py-10 text-gray-400">No results found.</div>`;
 }
 
 function createCard(c, isEnrolled) {
+  const isLiked = favoriteIds.includes(c._id);
   return `
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-        <img src="${c.imageUrl}" class="h-44 w-full object-cover" alt="${
-    c.title
-  }">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-all relative">
+        ${
+          !isEnrolled
+            ? `
+        <button onclick="toggleFavorite('${
+          c._id
+        }')" class="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:scale-110 transition-transform">
+            <i class="${isLiked ? "fa-solid" : "fa-regular"} fa-heart ${
+                isLiked ? "text-red-500" : "text-gray-400"
+              }"></i>
+        </button>`
+            : ""
+        }
+        
+        <img src="${c.imageUrl}" class="h-44 w-full object-cover">
         <div class="p-5 flex-grow">
-            <span class="text-blue-600 text-[11px] font-bold uppercase tracking-wider">${
+            <span class="text-blue-600 text-[11px] font-bold uppercase">${
               c.category
             }</span>
             <h4 class="font-bold text-gray-800 mt-1">${c.title}</h4>
-            <p class="text-gray-500 text-xs line-clamp-2 mt-2 leading-relaxed">${
+            <p class="text-gray-500 text-xs line-clamp-2 mt-2">${
               c.description
             }</p>
         </div>
@@ -106,6 +116,16 @@ function createCard(c, isEnrolled) {
     </div>`;
 }
 
+async function toggleFavorite(courseId) {
+  await fetch(`${API_URL}/toggle-favorite`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId, courseId }),
+  });
+  await fetchData();
+  render();
+}
+
 async function enroll(courseId) {
   await fetch(`${API_URL}/enroll`, {
     method: "POST",
@@ -116,7 +136,7 @@ async function enroll(courseId) {
 }
 
 async function unenroll(courseId) {
-  if (confirm("Are you sure you want to drop this course?")) {
+  if (confirm("Drop course?")) {
     await fetch(`${API_URL}/unenroll`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -137,5 +157,4 @@ async function init() {
   render();
   document.getElementById("course-search").addEventListener("input", render);
 }
-
 init();
