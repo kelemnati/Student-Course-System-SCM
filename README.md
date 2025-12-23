@@ -1,21 +1,25 @@
 # Student Login & Course List System
 
-SCM Mini Project – Software Engineering Department
+## Project Overview
 
-This project demonstrates the application of Software Configuration Management (SCM)
-principles using Git and GitHub.
+This project is a simple academic system developed to demonstrate
+Software Configuration Management (SCM) concepts using Git and GitHub.
+It includes a login module, course list module, and basic user actions.
 
-Focus is on SCM processes, not programming complexity.
+## Features
 
-## Branching Rules
+- User login (demo authentication)
+- Course list display
+- Course search functionality
+- Favorite courses feature
 
-- Direct commits to main are not allowed
-- All changes must be done in feature branches
-- Pull Requests are required for merging
+## Technologies Used
 
-## Baselines
-
-- BL1: Repository setup and SCM documentation
+- HTML
+- CSS
+- JavaScript
+- Node.js (basic backend simulation)
+- JSON / simple database
 
 ## Known Limitations & Assumptions
 
@@ -24,3 +28,9 @@ Focus is on SCM processes, not programming complexity.
 - Database integration is minimal and used only to simulate backend behavior.
 - The system is not optimized for scalability or security.
 - This project focuses on Software Configuration Management processes rather than full system functionality.
+
+## SCM Focus
+
+The primary goal of this project is to apply SCM practices such as
+branching, baselines, change control, configuration auditing,
+and release management.
