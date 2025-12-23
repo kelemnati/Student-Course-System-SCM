@@ -1,0 +1,17 @@
+Baseline ID: BL3
+Baseline Name: Functional Baseline v1.1
+
+Description:
+This baseline includes the working Student Login & Course List System
+after implementation of CR-002 (Favorite Courses Feature).
+
+Included Configuration Items:
+- Login module
+- Course list module
+- Course search feature (CR-001)
+- Favorite courses feature (CR-002)
+- Change control documents
+- Test checklist
+
+Baseline Date: 12/23/2025
+Approved By: Project Leader
