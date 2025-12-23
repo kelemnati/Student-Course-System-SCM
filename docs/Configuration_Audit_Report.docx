@@ -1,0 +1,101 @@
+CONFIGURATION AUDIT REPORT
+
+Project Title: Student Login & Course List System
+Course: Software Configuration Management (SCM)
+Department: Software Engineering
+Audit Type: Physical Configuration Audit (PCA) & Functional Configuration Audit (FCA)
+
+-------------------------------------------------------------------
+
+1. Introduction
+
+This Configuration Audit Report documents the results of the Physical Configuration Audit (PCA) and Functional Configuration Audit (FCA) conducted for the Student Login & Course List System. The objective of this audit is to ensure that all Configuration Items (CIs) are correctly identified, documented, versioned, and implemented in accordance with the approved Software Configuration Management Plan (SCMP).
+
+The audit verifies compliance with defined baselines, approved Change Requests (CRs), and release versions.
+
+-------------------------------------------------------------------
+
+2. Physical Configuration Audit (PCA)
+
+The Physical Configuration Audit focuses on verifying that all approved configuration items exist in the repository and match the documented records.
+
+2.1 PCA Scope
+
+- Verification of repository structure
+- Verification of SCM documentation
+- Verification of CI identification and naming
+- Verification of baselines and release tags
+
+2.2 PCA Checklist
+
+- Repository contains /docs, /src, /tests, and /releases directories
+- SCM Plan (SCMP) document exists
+- CI Register is available and updated
+- Change Request Forms and Change Log are present
+- Source code files are correctly named
+- Baseline tags (BL1, BL2, BL3) exist
+- Release tags (v1.0, v1.1) exist
+
+2.3 PCA Findings
+
+| Configuration Item                   | Status     |
+|--------------------------------------|------------|
+| SCM Plan (SCMP)                      | Verified   |
+| CI Register                          | Verified   |
+| Change Request Forms                 | Verified   |
+| Change Log                           | Verified   |
+| Source Code Files                    | Verified   |
+| Release Notes                        | Verified   |
+| Baseline Tags                        | Verified   |
+
+2.4 PCA Result
+
+All configuration items were found to be physically present, correctly named, and consistent with the SCM documentation. No discrepancies were identified during the Physical Configuration Audit.
+
+-------------------------------------------------------------------
+
+3. Functional Configuration Audit (FCA)
+
+The Functional Configuration Audit verifies that the implemented system functionalities align with the approved requirements and change requests.
+
+3.1 FCA Scope
+
+- Verification of core system functionality
+- Verification of implemented Change Requests
+- Validation of features against project objectives
+
+3.2 FCA Checklist
+
+- Login functionality operates as intended
+- Course list displays correctly
+- Course search functionality implemented (CR-001)
+- Favorite courses feature implemented (CR-002)
+- Documentation updates completed (CR-003)
+
+3.3 FCA Findings
+
+| Change Request ID | Description                         | Status       |
+|------------------|-------------------------------------|--------------|
+| CR-001           | Course search functionality         | Implemented  |
+| CR-002           | Favorite courses feature            | Implemented  |
+| CR-003           | Documentation updates               | Implemented  |
+
+3.4 FCA Result
+
+All approved Change Requests were successfully implemented and verified. The system functions meet the defined project requirements.
+
+-------------------------------------------------------------------
+
+4. Conclusion
+
+The Configuration Audit confirms that the Student Login & Course List System complies with the approved baselines, documented configuration items, and implemented change requests. Both the Physical Configuration Audit and Functional Configuration Audit were completed successfully without major issues.
+
+-------------------------------------------------------------------
+
+5. Audit Approval
+
+Audited By: QA / Configuration Auditor  
+Audit Date: __12/23/2025_____ 
+Audit Status: Approved
+
+-------------------------------------------------------------------
