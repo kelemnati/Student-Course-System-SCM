@@ -1,0 +1,221 @@
+Department of Software Engineering
+Software Configuration Management (SCM)
+
+SOFTWARE CONFIGURATION MANAGEMENT PLAN (SCMP)
+
+Project Title: Student Login & Course List System
+Course: Software Configuration Management
+Team Size: 7 Members
+Repository: https://github.com/kelemnati/Student-Course-System-SCM
+Date: December 2025
+
+
+1. INTRODUCTION
+
+1.1 Purpose
+This Software Configuration Management Plan (SCMP) defines the processes, roles, tools, and procedures used to manage configuration items for the Student Login & Course List System project. The plan ensures systematic control of changes, versioning, baselines, and releases throughout the project lifecycle.
+
+1.2 Scope
+This SCMP applies to all project artifacts including documentation, source code, configuration files, test artifacts, baselines, and releases. The plan governs activities from initial repository setup to final release and audit.
+
+1.3 Project Overview
+The Student Login & Course List System is a simple web-based application consisting of a login page, a course listing module, core features such as search and favorite courses, and a simple database or JSON-based backend. The project focuses on applying SCM principles rather than developing a production-level system.
+
+
+2. SCM MANAGEMENT
+
+2.1 SCM Organization and Roles
+
+Role: Team Leader  
+Responsibilities:
+- Overall SCM coordination
+- Baseline and release management
+- Approval of change requests
+
+Role: Developer 1  
+Responsibilities:
+- Login module implementation
+- Feature branch development
+
+Role: Developer 2  
+Responsibilities:
+- Course list and search feature implementation
+
+Role: Developer 3  
+Responsibilities:
+- Backend and favorite courses feature implementation
+
+Role: Change Manager  
+Responsibilities:
+- Manage Change Request (CR) forms
+- Maintain Change Log
+- Track CR status
+
+Role: QA / Auditor  
+Responsibilities:
+- Prepare test checklist
+- Conduct PCA and FCA audits
+- Verify CR implementation
+
+
+3. CONFIGURATION IDENTIFICATION
+
+3.1 Configuration Items (CIs)
+Configuration Items include all artifacts placed under configuration control, such as:
+- SCM Plan (SCMP)
+- CI Register
+- Change Request Forms
+- Change Log
+- Source code files (HTML, CSS, JavaScript)
+- Database or JSON files
+- Audit reports
+- Release notes
+
+3.2 CI Identification and Naming Convention
+CIs are identified using the following format:
+
+CI-XX  : Configuration Item Identifier  
+CR-XXX : Change Request Identifier  
+BLX    : Baseline Identifier  
+vX.X   : Release Version  
+
+Example:
+CI-06 – Course List Page  
+CR-002 – Favorite Courses Feature  
+BL2 – Functional Baseline  
+
+
+4. VERSION CONTROL
+
+4.1 Version Control Tools
+- Git is used for version control
+- GitHub is used for repository hosting and collaboration
+
+4.2 Repository Structure
+
+/docs       – Documentation files  
+/src        – Source code  
+/tests      – Test artifacts  
+/releases   – Release notes and packages  
+
+4.3 Branching Strategy
+The project follows a feature-based branching model:
+
+- main
+- feature-login
+- feature-course
+- feature-course-search
+- feature-favorites
+
+Rules:
+- No direct commits to main branch
+- All development occurs in feature branches
+- Changes are merged via Pull Requests only
+
+
+5. CHANGE CONTROL PROCESS
+
+5.1 Change Request Procedure
+1. Change Request is submitted using CR Form
+2. Impact analysis is performed
+3. Change is reviewed and approved
+4. Implementation is done in a feature branch
+5. Testing and verification are performed
+6. Pull Request is merged into main
+7. Change is recorded in Change Log
+
+5.2 Implemented Change Requests
+- CR-001: Add Course Search Functionality
+- CR-002: Add Favorite Courses Feature
+- CR-003: Backend and Data Handling Improvements
+
+
+6. BASELINE MANAGEMENT
+
+6.1 Baseline Definition
+A baseline is a formally approved snapshot of the project at a specific point in time.
+
+6.2 Project Baselines
+
+Baseline 1 (BL1):
+- Repository structure
+- Initial documentation
+- CI Register
+
+Baseline 2 (BL2):
+- Working prototype
+- Implemented CRs
+- Tested features
+
+Baselines are created and tracked using Git tags.
+
+
+7. RELEASE MANAGEMENT
+
+7.1 Release Strategy
+Releases represent stable versions of the system delivered to stakeholders.
+
+7.2 Project Releases
+
+Release v1.0:
+- Login functionality
+- Course list module
+
+Release v1.1:
+- Course search feature
+- Favorite courses feature
+- CR implementations
+
+Release notes are documented and published through GitHub Releases.
+
+
+8. CONFIGURATION STATUS ACCOUNTING
+
+Configuration status is tracked using:
+- Git commit history
+- Pull Requests
+- CI Register
+- Change Log
+- Baseline and release tags
+
+
+9. CONFIGURATION AUDIT
+
+9.1 Physical Configuration Audit (PCA)
+Ensures:
+- All documents exist in the repository
+- CI names and versions are consistent
+- Baselines and releases are correctly tagged
+
+9.2 Functional Configuration Audit (FCA)
+Ensures:
+- Approved CRs are implemented
+- System functionality matches requirements
+- No unauthorized changes exist
+
+
+10. TOOLS AND TECHNOLOGIES
+
+- Git
+- GitHub
+- HTML, CSS, JavaScript
+- Node.js / JSON
+- Microsoft Word
+- Microsoft Excel
+
+
+11. ASSUMPTIONS AND LIMITATIONS
+
+- Authentication is static and for demonstration only
+- Passwords are not encrypted
+- Database integration is minimal
+- System is not production-ready
+- Focus is on SCM practices rather than full functionality
+
+
+12. CONCLUSION
+
+This Software Configuration Management Plan provides a structured approach to managing configuration items, changes, baselines, and releases for the Student Login & Course List System. The defined SCM practices ensure traceability, consistency, and auditability throughout the project lifecycle.
+
+
+
