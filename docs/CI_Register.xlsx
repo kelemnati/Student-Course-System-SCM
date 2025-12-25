@@ -1,0 +1,14 @@
+CI ID | CI Name                    | Version | Owner           | Category     | Status    | Description
+-----------------------------------------------------------------------------------------------------------
+CI-01 | SCM Plan (SCMP)            | v1.0    | Team Leader     | Document     | Approved  | Defines SCM processes, roles, and procedures
+CI-02 | CI Register                | v1.0    | Change Manager  | Document     | Approved  | Lists all configuration items
+CI-03 | Change Request Form        | v1.0    | Change Manager  | Document     | Approved  | Template for submitting change requests
+CI-04 | Change Log                 | v1.1    | Change Manager  | Document     | Approved  | Tracks all approved and implemented CRs
+CI-05 | Login Page                 | v1.0    | Developer 1     | Source Code  | Approved  | Static student login functionality
+CI-06 | Course List Page           | v1.1    | Developer 2     | Source Code  | Approved  | Displays list of available courses
+CI-07 | Course Search Feature      | v1.1    | Developer 2     | Source Code  | Approved  | Filters courses by course name
+CI-08 | Favorite Courses Feature   | v1.2    | Developer 3     | Source Code  | Approved  | Allows users to add/view favorite courses
+CI-09 | Database / JSON File       | v1.0    | Backend Dev     | Data         | Approved  | Stores course and user data
+CI-10 | Test Checklist             | v1.0    | QA / Auditor    | Document     | Approved  | Defines test cases for system verification
+CI-11 | Audit Report (PCA & FCA)   | v1.0    | QA / Auditor    | Document     | Approved  | Configuration audit results
+CI-12 | Release Notes              | v1.1    | Team Leader     | Document     | Approved  | Documents release details and changes
